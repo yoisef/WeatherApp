@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Weathernow</string>
+    <string name="chosse">choose the city</string>
+    <string-array name="planets_array">
+        <item>Alexandria</item>
+        <item>Cairo</item>
+        <item>London</item>
+        <item>New York</item>
+        <item>Paris</item>
+    </string-array>
+</resources>
