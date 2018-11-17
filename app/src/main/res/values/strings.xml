@@ -4,8 +4,8 @@
     <string-array name="planets_array">
         <item>Alexandria</item>
         <item>Cairo</item>
-        <item>London</item>
-        <item>New York</item>
+        <item>Miami</item>
         <item>Paris</item>
+        <item>Chicago</item>
     </string-array>
 </resources>

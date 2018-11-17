@@ -13,7 +13,7 @@ public class Current {
     private String lastUpdated;
     @SerializedName("temp_c")
     @Expose
-    private Integer tempC;
+    private Float tempC;
     @SerializedName("temp_f")
     @Expose
     private Double tempF;
@@ -31,28 +31,28 @@ public class Current {
     private Double windKph;
     @SerializedName("wind_degree")
     @Expose
-    private Integer windDegree;
+    private Float windDegree;
     @SerializedName("wind_dir")
     @Expose
     private String windDir;
     @SerializedName("pressure_mb")
     @Expose
-    private Integer pressureMb;
+    private Float pressureMb;
     @SerializedName("pressure_in")
     @Expose
-    private Double pressureIn;
+    private Float pressureIn;
     @SerializedName("precip_mm")
     @Expose
-    private Integer precipMm;
+    private Float precipMm;
     @SerializedName("precip_in")
     @Expose
-    private Integer precipIn;
+    private Float precipIn;
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private Double humidity;
     @SerializedName("cloud")
     @Expose
-    private Integer cloud;
+    private Double cloud;
     @SerializedName("feelslike_c")
     @Expose
     private Double feelslikeC;
@@ -61,10 +61,83 @@ public class Current {
     private Double feelslikeF;
     @SerializedName("vis_km")
     @Expose
-    private Integer visKm;
+    private Double visKm;
+
+    public Float getWindDegree() {
+        return windDegree;
+    }
+
+    public void setWindDegree(Float windDegree) {
+        this.windDegree = windDegree;
+    }
+
+    public Float getPressureMb() {
+        return pressureMb;
+    }
+
+    public void setPressureMb(Float pressureMb) {
+        this.pressureMb = pressureMb;
+    }
+
+    public Float getPressureIn() {
+        return pressureIn;
+    }
+
+    public void setPressureIn(Float pressureIn) {
+        this.pressureIn = pressureIn;
+    }
+
+    public Float getPrecipMm() {
+        return precipMm;
+    }
+
+    public void setPrecipMm(Float precipMm) {
+        this.precipMm = precipMm;
+    }
+
+    public Float getPrecipIn() {
+        return precipIn;
+    }
+
+    public void setPrecipIn(Float precipIn) {
+        this.precipIn = precipIn;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
+    public Double getCloud() {
+        return cloud;
+    }
+
+    public void setCloud(Double cloud) {
+        this.cloud = cloud;
+    }
+
+    public Double getVisKm() {
+        return visKm;
+    }
+
+    public void setVisKm(Double visKm) {
+        this.visKm = visKm;
+    }
+
+    public Double getVisMiles() {
+        return visMiles;
+    }
+
+    public void setVisMiles(Double visMiles) {
+        this.visMiles = visMiles;
+    }
+
     @SerializedName("vis_miles")
     @Expose
-    private Integer visMiles;
+    private Double visMiles;
 
     public Integer getLastUpdatedEpoch() {
         return lastUpdatedEpoch;
@@ -82,11 +155,11 @@ public class Current {
         this.lastUpdated = lastUpdated;
     }
 
-    public Integer getTempC() {
+    public Float getTempC() {
         return tempC;
     }
 
-    public void setTempC(Integer tempC) {
+    public void setTempC(Float tempC) {
         this.tempC = tempC;
     }
 
@@ -130,13 +203,7 @@ public class Current {
         this.windKph = windKph;
     }
 
-    public Integer getWindDegree() {
-        return windDegree;
-    }
 
-    public void setWindDegree(Integer windDegree) {
-        this.windDegree = windDegree;
-    }
 
     public String getWindDir() {
         return windDir;
@@ -146,53 +213,7 @@ public class Current {
         this.windDir = windDir;
     }
 
-    public Integer getPressureMb() {
-        return pressureMb;
-    }
 
-    public void setPressureMb(Integer pressureMb) {
-        this.pressureMb = pressureMb;
-    }
-
-    public Double getPressureIn() {
-        return pressureIn;
-    }
-
-    public void setPressureIn(Double pressureIn) {
-        this.pressureIn = pressureIn;
-    }
-
-    public Integer getPrecipMm() {
-        return precipMm;
-    }
-
-    public void setPrecipMm(Integer precipMm) {
-        this.precipMm = precipMm;
-    }
-
-    public Integer getPrecipIn() {
-        return precipIn;
-    }
-
-    public void setPrecipIn(Integer precipIn) {
-        this.precipIn = precipIn;
-    }
-
-    public Integer getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
-    public Integer getCloud() {
-        return cloud;
-    }
-
-    public void setCloud(Integer cloud) {
-        this.cloud = cloud;
-    }
 
     public Double getFeelslikeC() {
         return feelslikeC;
@@ -210,20 +231,5 @@ public class Current {
         this.feelslikeF = feelslikeF;
     }
 
-    public Integer getVisKm() {
-        return visKm;
-    }
-
-    public void setVisKm(Integer visKm) {
-        this.visKm = visKm;
-    }
-
-    public Integer getVisMiles() {
-        return visMiles;
-    }
-
-    public void setVisMiles(Integer visMiles) {
-        this.visMiles = visMiles;
-    }
 
 }
