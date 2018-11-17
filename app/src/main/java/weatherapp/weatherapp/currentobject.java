@@ -8,11 +8,13 @@ public class currentobject {
     String mycondi;
     String mytemp;
 
-    public currentobject(String coun,String cit ,String dat )
+    public currentobject(String coun,String cit ,String dat,String con,String tempe )
     {
         this.mycoun=coun;
         this.mycity=cit;
         this.mydata=dat;
+        this.mycondi=con;
+        this.mytemp=tempe;
 
     }
 

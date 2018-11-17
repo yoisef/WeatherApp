@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view,  int position, long id) {
 
                  //call weather data from the api by Retrofit library
                 OkHttpClient.Builder builderr = new OkHttpClient.Builder();
@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CurWeather> call, Response<CurWeather> response) {
 
+                      int i=  myspinner.getSelectedItemPosition();
+
 
                         if (response.isSuccessful()) {
                             String coun,citye,data,cond,temper;
@@ -131,9 +133,30 @@ public class MainActivity extends AppCompatActivity {
                             data=response.body().getLocation().getLocaltime();
                             cond=response.body().getCurrent().getCondition().getText();
                             temper=Float.toString(response.body().getCurrent().getTempC()) + "°";
+                         switch (i)
+                         {
+                             case 0:{
+                                 mydatabasee.insertdataalex(coun,citye,data,cond,temper);
+                                 break;
+                             }
+                             case 1:{
+                                 mydatabasee.insertdatacairo(coun,citye,data,cond,temper);
+                                 break;
+                             }
+                             case 2:{
+                                 mydatabasee.insertdatamimia(coun,citye,data,cond,temper);
+                                 break;
+                             }
+                             case 3:{
+                                 mydatabasee.insertdataparis(coun,citye,data,cond,temper);
+                                 break;
+                             }
+                             case 4:{
+                                 mydatabasee.insertdatachicgo(coun,citye,data,cond,temper);
+                                 break;
+                             }
+                         }
 
-                          Boolean resu=  mydatabasee.insertdata(coun,citye,data,cond,temper);
-                            Toast.makeText(MainActivity.this, resu.toString(), Toast.LENGTH_LONG).show();
 
 
 
@@ -162,16 +185,67 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<CurWeather> call, Throwable t) {
-                      List<currentobject> mylist;
 
-                      mylist= mydatabasee.getdatafromcurrenttable();
+                        int x=  myspinner.getSelectedItemPosition();
 
-                        cityy.setText(mylist.get(mylist.size()-1).getMycity());
-                        countryy.setText(mylist.get(mylist.size()-1).getMycoun());
-                        dataa.setText(mylist.get(mylist.size()-1).getMydata());
-                        Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                        List<currentobject> mylist;
 
-                        Log.e("myerror",t.toString());
+                      switch (x)
+                      {
+                          case 0:{
+                              mylist=mydatabasee.getdatafromcurrenttalex();
+                              cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                              countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                              dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                              conditiontext.setText(mylist.get(mylist.size()-1).getMycondi());
+                              temp.setText(mylist.get(mylist.size()-1).getMytemp());
+                              Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                              break;
+                          }
+                          case 1:{
+                              mylist=mydatabasee.getdatafromcurrenttCairo();
+                              cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                              countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                              dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                              conditiontext.setText(mylist.get(mylist.size()-1).getMycondi());
+                              temp.setText(mylist.get(mylist.size()-1).getMytemp());
+                              Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                              break;
+                          }
+                          case 2:{
+                              mylist=mydatabasee.getdatafromcurrenttMiami();
+                              cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                              countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                              dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                              conditiontext.setText(mylist.get(mylist.size()-1).getMycondi());
+                              temp.setText(mylist.get(mylist.size()-1).getMytemp());
+                              Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                              break;
+                          }
+                          case 3:{
+                              mylist=mydatabasee.getdatafromcurrenttparis();
+                              cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                              countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                              dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                              conditiontext.setText(mylist.get(mylist.size()-1).getMycondi());
+                              temp.setText(mylist.get(mylist.size()-1).getMytemp());
+                              Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                              break;
+                          }
+                          case 4:{
+                              mylist=mydatabasee.getdatafromcurrenttchicago();
+                              cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                              countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                              dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                              conditiontext.setText(mylist.get(mylist.size()-1).getMycondi());
+                              temp.setText(mylist.get(mylist.size()-1).getMytemp());
+                              Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
+                              break;
+                          }
+                      }
+
+
+
 
 
 
