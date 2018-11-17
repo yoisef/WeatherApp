@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     Call<CurWeather> call;
     Call<ForcWeather> callf;
     List<Forecastday> mylistfor;
+    mydatabase mydatabasee;
+
+
 
 
 
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mydatabasee=new mydatabase(this);
 
         mylistfor=new ArrayList<>();
 
@@ -89,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+        // Change the Weather data of the City was selected
+
         myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -117,6 +125,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                         if (response.isSuccessful()) {
+                            String coun,citye,data,cond,temper;
+                            coun=response.body().getLocation().getCountry();
+                            citye=response.body().getLocation().getName();
+                            data=response.body().getLocation().getLocaltime();
+                            cond=response.body().getCurrent().getCondition().getText();
+                            temper=Float.toString(response.body().getCurrent().getTempC()) + "°";
+
+                          Boolean resu=  mydatabasee.insertdata(coun,citye,data,cond,temper);
+                            Toast.makeText(MainActivity.this, resu.toString(), Toast.LENGTH_LONG).show();
+
+
+
 
 
                             cityy.setText(response.body().getLocation().getName());
@@ -142,6 +162,14 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<CurWeather> call, Throwable t) {
+                      List<currentobject> mylist;
+
+                      mylist= mydatabasee.getdatafromcurrenttable();
+
+                        cityy.setText(mylist.get(mylist.size()-1).getMycity());
+                        countryy.setText(mylist.get(mylist.size()-1).getMycoun());
+                        dataa.setText(mylist.get(mylist.size()-1).getMydata());
+                        Toast.makeText(MainActivity.this,String.valueOf(mylist.size()),Toast.LENGTH_LONG).show();
 
                         Log.e("myerror",t.toString());
 
@@ -152,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                //forcastcall
+                //Call Forecast Weather Data for 5 cities
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
                 HttpLoggingInterceptor loggingInterceptorr = new HttpLoggingInterceptor();
                 loggingInterceptorr.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -187,6 +215,13 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ForcWeather> call, Throwable t) {
+
+                        mylistfor=new ArrayList<>();
+                        foreadapter myadapter = new foreadapter(MainActivity.this,mylistfor);
+                        myadapter.notifyDataSetChanged();
+
+                        forrecycle.setAdapter(myadapter);
+
 
                         Log.e("error2",t.getMessage());
 
