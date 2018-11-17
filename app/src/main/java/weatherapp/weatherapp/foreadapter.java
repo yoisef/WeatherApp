@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -22,19 +24,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import weatherapp.weatherapp.models.ForcWeather;
 import weatherapp.weatherapp.models.Forecastday;
 
 public class foreadapter extends RecyclerView.Adapter<foreadapter.viewholder> {
 
     Context context;
+    Call<ForcWeather> callf;
 
-    List<Forecastday> mylistfor;
+    ArrayList<Forecastday> mylistfor;
     ArrayList<String> nm=new ArrayList<>();
+    MainActivity mymain=new MainActivity();
 
-    public foreadapter(Activity context, List<Forecastday> mylist)
+    public foreadapter( Activity context,List<Forecastday> mylist)
     {
         this.context=context;
-        mylistfor=mylist;
+        mylistfor= (ArrayList<Forecastday>) mylist;
 
 
 

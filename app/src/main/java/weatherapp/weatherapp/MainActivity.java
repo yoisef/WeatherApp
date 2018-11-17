@@ -46,12 +46,16 @@ public class MainActivity extends AppCompatActivity {
     Spinner myspinner;
     Call<CurWeather> call;
     Call<ForcWeather> callf;
+    List<Forecastday> mylistfor;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mylistfor=new ArrayList<>();
 
         Data = new ArrayList<>();
         mysearchlist = new ArrayList<>();
@@ -64,12 +68,14 @@ public class MainActivity extends AppCompatActivity {
         conditiontext = findViewById(R.id.textcondition);
         imgcondition = findViewById(R.id.imgcondition);
 
+
         temp = findViewById(R.id.temperaturee);
 
-        forrecycle = findViewById(R.id.forcastrecycle);
+        forrecycle = findViewById(R.id.forcastrec);
         forrecycle.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         forrecycle.setLayoutManager(mLayoutManager);
+
         // intialize spinner for the 5 cities
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -77,11 +83,17 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         myspinner.setAdapter(adapter);
 
+
+
+
+
+
+
         myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
+                 //call weather data from the api by Retrofit library
                 OkHttpClient.Builder builderr = new OkHttpClient.Builder();
 
                 HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -137,6 +149,53 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
+                //forcastcall
+                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                HttpLoggingInterceptor loggingInterceptorr = new HttpLoggingInterceptor();
+                loggingInterceptorr.setLevel(HttpLoggingInterceptor.Level.BODY);
+                builder.addInterceptor(loggingInterceptor);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://api.apixu.com/v1/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .client(builderr.build())
+                        .build();
+
+                Endpoints myendpointss = retrofit.create(Endpoints.class);
+                callf=myendpointss.getforecast(myspinner.getSelectedItem().toString());
+                callf.enqueue(new Callback<ForcWeather>() {
+                    @Override
+                    public void onResponse(Call<ForcWeather> call, Response<ForcWeather> response) {
+
+                        if (response.isSuccessful())
+                        {
+                            mylistfor = response.body().getForecast().getForecastday();
+                            foreadapter myadapter = new foreadapter(MainActivity.this,mylistfor);
+                            myadapter.notifyDataSetChanged();
+
+                            forrecycle.setAdapter(myadapter);
+
+
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,"errorman",Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ForcWeather> call, Throwable t) {
+
+                        Log.e("error2",t.getMessage());
+
+
+                    }
+                });
+
+
+
             }
 
             @Override

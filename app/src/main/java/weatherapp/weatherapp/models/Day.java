@@ -31,25 +31,19 @@ public class Day {
     private Double maxwindKph;
     @SerializedName("totalprecip_mm")
     @Expose
-    private Integer totalprecipMm;
+    private Double totalprecipMm;
     @SerializedName("totalprecip_in")
     @Expose
-    private Integer totalprecipIn;
+    private Double totalprecipIn;
     @SerializedName("avgvis_km")
     @Expose
-    private Integer avgvisKm;
+    private Double avgvisKm;
     @SerializedName("avgvis_miles")
     @Expose
-    private Integer avgvisMiles;
+    private Double avgvisMiles;
     @SerializedName("avghumidity")
     @Expose
-    private Integer avghumidity;
-    @SerializedName("condition")
-    @Expose
-    private Condition_ condition;
-    @SerializedName("uv")
-    @Expose
-    private Double uv;
+    private Double avghumidity;
 
     public Double getMaxtempC() {
         return maxtempC;
@@ -115,43 +109,43 @@ public class Day {
         this.maxwindKph = maxwindKph;
     }
 
-    public Integer getTotalprecipMm() {
+    public Double getTotalprecipMm() {
         return totalprecipMm;
     }
 
-    public void setTotalprecipMm(Integer totalprecipMm) {
+    public void setTotalprecipMm(Double totalprecipMm) {
         this.totalprecipMm = totalprecipMm;
     }
 
-    public Integer getTotalprecipIn() {
+    public Double getTotalprecipIn() {
         return totalprecipIn;
     }
 
-    public void setTotalprecipIn(Integer totalprecipIn) {
+    public void setTotalprecipIn(Double totalprecipIn) {
         this.totalprecipIn = totalprecipIn;
     }
 
-    public Integer getAvgvisKm() {
+    public Double getAvgvisKm() {
         return avgvisKm;
     }
 
-    public void setAvgvisKm(Integer avgvisKm) {
+    public void setAvgvisKm(Double avgvisKm) {
         this.avgvisKm = avgvisKm;
     }
 
-    public Integer getAvgvisMiles() {
+    public Double getAvgvisMiles() {
         return avgvisMiles;
     }
 
-    public void setAvgvisMiles(Integer avgvisMiles) {
+    public void setAvgvisMiles(Double avgvisMiles) {
         this.avgvisMiles = avgvisMiles;
     }
 
-    public Integer getAvghumidity() {
+    public Double getAvghumidity() {
         return avghumidity;
     }
 
-    public void setAvghumidity(Integer avghumidity) {
+    public void setAvghumidity(Double avghumidity) {
         this.avghumidity = avghumidity;
     }
 
@@ -170,5 +164,13 @@ public class Day {
     public void setUv(Double uv) {
         this.uv = uv;
     }
+
+    @SerializedName("condition")
+    @Expose
+    private Condition_ condition;
+    @SerializedName("uv")
+    @Expose
+    private Double uv;
+
 
 }
