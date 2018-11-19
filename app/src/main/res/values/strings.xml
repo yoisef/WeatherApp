@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Weathernow</string>
     <string name="chosse">choose the city</string>
+    <string name="Contactdeta">Contact details</string>
     <string-array name="planets_array">
         <item>Alexandria</item>
         <item>Cairo</item>

@@ -20,6 +20,8 @@ public class mydatabase extends SQLiteOpenHelper {
     public static final String Tablename3="Current_weatherMimia";
     public static final String Tablename4="Current_weatherPairs";
     public static final String Tablename5="Current_weatherChicago";
+
+
     public static final String columna="ID";
     public static final String columnb="Country";
     public static final String columnc="City";
@@ -49,6 +51,7 @@ public class mydatabase extends SQLiteOpenHelper {
         db.execSQL(example4);
 
 
+
     }
 
     @Override
@@ -59,6 +62,7 @@ public class mydatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ Tablename3);
         db.execSQL("DROP TABLE IF EXISTS "+ Tablename4);
         db.execSQL("DROP TABLE IF EXISTS "+ Tablename5);
+
         onCreate(db);
 
     }
@@ -95,6 +99,7 @@ public class mydatabase extends SQLiteOpenHelper {
         contentValues.put(columnd,dataa);
         contentValues.put(columne,con);
         contentValues.put(columnf,temp);
+
 
         long result=  db.insert(Tablename2,null,contentValues);
 

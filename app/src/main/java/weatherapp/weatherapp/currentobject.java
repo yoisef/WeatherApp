@@ -8,6 +8,10 @@ public class currentobject {
     String mycondi;
     String mytemp;
 
+
+
+    String imgurl;
+
     public currentobject(String coun,String cit ,String dat,String con,String tempe )
     {
         this.mycoun=coun;
@@ -15,6 +19,7 @@ public class currentobject {
         this.mydata=dat;
         this.mycondi=con;
         this.mytemp=tempe;
+
 
     }
 
@@ -56,5 +61,12 @@ public class currentobject {
 
     public void setMytemp(String mytemp) {
         this.mytemp = mytemp;
+    }
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }
