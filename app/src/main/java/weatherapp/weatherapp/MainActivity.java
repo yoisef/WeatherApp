@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     Call<ForcWeather> callf;
     List<Forecastday> mylistfor;
     mydatabase mydatabasee;
+    Gson gson = new Gson();
 
 
     @Override
@@ -205,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
                                 conditiontext.setText(mylist.get(mylist.size() - 1).getMycondi());
                                 temp.setText(mylist.get(mylist.size() - 1).getMytemp());
 
-                                Toast.makeText(MainActivity.this, String.valueOf(mylist.size()), Toast.LENGTH_LONG).show();
                                 break;
                             }
                             case 1: {
@@ -215,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
                                 dataa.setText(mylist.get(mylist.size() - 1).getMydata());
                                 conditiontext.setText(mylist.get(mylist.size() - 1).getMycondi());
                                 temp.setText(mylist.get(mylist.size() - 1).getMytemp());
-                                Toast.makeText(MainActivity.this, String.valueOf(mylist.size()), Toast.LENGTH_LONG).show();
                                 break;
                             }
                             case 2: {
@@ -225,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
                                 dataa.setText(mylist.get(mylist.size() - 1).getMydata());
                                 conditiontext.setText(mylist.get(mylist.size() - 1).getMycondi());
                                 temp.setText(mylist.get(mylist.size() - 1).getMytemp());
-                                Toast.makeText(MainActivity.this, String.valueOf(mylist.size()), Toast.LENGTH_LONG).show();
                                 break;
                             }
                             case 3: {
@@ -235,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
                                 dataa.setText(mylist.get(mylist.size() - 1).getMydata());
                                 conditiontext.setText(mylist.get(mylist.size() - 1).getMycondi());
                                 temp.setText(mylist.get(mylist.size() - 1).getMytemp());
-                                Toast.makeText(MainActivity.this, String.valueOf(mylist.size()), Toast.LENGTH_LONG).show();
                                 break;
                             }
                             case 4: {
@@ -245,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
                                 dataa.setText(mylist.get(mylist.size() - 1).getMydata());
                                 conditiontext.setText(mylist.get(mylist.size() - 1).getMycondi());
                                 temp.setText(mylist.get(mylist.size() - 1).getMytemp());
-                                Toast.makeText(MainActivity.this, String.valueOf(mylist.size()), Toast.LENGTH_LONG).show();
                                 break;
                             }
                         }
@@ -283,21 +279,59 @@ public class MainActivity extends AppCompatActivity {
                             switch (z) {
                                 case 0: {
                                     mylistfor = response.body().getForecast().getForecastday();
-                                    Set<Forecastday> set = new HashSet<Forecastday>(mylistfor);
                                     Forecastday forecastday = new Forecastday();
                                     SharedPreferences prefs = getSharedPreferences("alexforcast", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = prefs.edit();
-
-
-                                    Gson gson = new Gson();
-                                    String json = gson.toJson(forecastday);
-                                    editor = prefs.edit();
-                                    editor.remove("key").apply();
-                                    editor.putString("key", json);
-                                    editor.commit();
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    String json = gson.toJson(mylistfor);
+                                    editor.putString("mykey", json);
+                                    editor.apply();
+                                    break;
+                                }
+                                case 1:{
+                                    mylistfor = response.body().getForecast().getForecastday();
+                                    Forecastday forecastday = new Forecastday();
+                                    SharedPreferences prefs = getSharedPreferences("cairoforcast", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    String json = gson.toJson(mylistfor);
+                                    editor.putString("keycai", json);
+                                    editor.apply();
+                                    break;
 
                                 }
+                                case 2:{
+                                    mylistfor = response.body().getForecast().getForecastday();
+                                    Forecastday forecastday = new Forecastday();
+                                    SharedPreferences prefs = getSharedPreferences("mimiaforcast", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    String json = gson.toJson(mylistfor);
+                                    editor.putString("keymim", json);
+                                    editor.apply();
+                                    break;
 
+                                }
+                                case 3:{
+
+                                    mylistfor = response.body().getForecast().getForecastday();
+                                    Forecastday forecastday = new Forecastday();
+                                    SharedPreferences prefs = getSharedPreferences("parisforcast", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    String json = gson.toJson(mylistfor);
+                                    editor.putString("keypar", json);
+                                    editor.apply();
+                                    break;
+
+                                }
+                                case 4:{
+                                    mylistfor = response.body().getForecast().getForecastday();
+                                    Forecastday forecastday = new Forecastday();
+                                    SharedPreferences prefs = getSharedPreferences("chicgoforcast", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    String json = gson.toJson(mylistfor);
+                                    editor.putString("keychi", json);
+                                    editor.apply();
+                                    break;
+
+                                }
 
                             }
                         } else {
@@ -309,17 +343,70 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ForcWeather> call, Throwable t) {
 
-                        //get data in the offline mode trying here
+                        int y = myspinner.getSelectedItemPosition();
+                        switch (y)
+                        {
+                            case 0:{
+                                SharedPreferences prefs = getSharedPreferences("alexforcast", Context.MODE_PRIVATE);
+                                String jsonstring= prefs.getString("mykey","");
+                                Type type = new TypeToken<List<Forecastday>>(){}.getType();
+                                List<Forecastday> carsList = gson.fromJson(jsonstring, type);
+                                foreadapter myadapter = new foreadapter(MainActivity.this, carsList);
+                                myadapter.notifyDataSetChanged();
+                                forrecycle.setAdapter(myadapter);
+                                break;
+
+                            }
+                            case 1:{
+                                SharedPreferences prefs = getSharedPreferences("cairoforcast", Context.MODE_PRIVATE);
+                                String jsonstring= prefs.getString("keycai","");
+                                Type type = new TypeToken<List<Forecastday>>(){}.getType();
+                                List<Forecastday> carsList = gson.fromJson(jsonstring, type);
+                                foreadapter myadapter = new foreadapter(MainActivity.this, carsList);
+                                myadapter.notifyDataSetChanged();
+                                forrecycle.setAdapter(myadapter);
+                                break;
+
+                            }
+                            case 2:{
+                                SharedPreferences prefs = getSharedPreferences("mimiaforcast", Context.MODE_PRIVATE);
+                                String jsonstring= prefs.getString("keymim","");
+                                Type type = new TypeToken<List<Forecastday>>(){}.getType();
+                                List<Forecastday> carsList = gson.fromJson(jsonstring, type);
+                                foreadapter myadapter = new foreadapter(MainActivity.this, carsList);
+                                myadapter.notifyDataSetChanged();
+                                forrecycle.setAdapter(myadapter);
+                                break;
+
+                            }
+                            case 3:{
+                                SharedPreferences prefs = getSharedPreferences("parisforcast", Context.MODE_PRIVATE);
+                                String jsonstring= prefs.getString("keypar","");
+                                Type type = new TypeToken<List<Forecastday>>(){}.getType();
+                                List<Forecastday> carsList = gson.fromJson(jsonstring, type);
+                                foreadapter myadapter = new foreadapter(MainActivity.this, carsList);
+                                myadapter.notifyDataSetChanged();
+                                forrecycle.setAdapter(myadapter);
+                                break;
+
+                            }
+                            case 4:{
+
+                                SharedPreferences prefs = getSharedPreferences("chicgoforcast", Context.MODE_PRIVATE);
+                                String jsonstring= prefs.getString("keychi","");
+                                Type type = new TypeToken<List<Forecastday>>(){}.getType();
+                                List<Forecastday> carsList = gson.fromJson(jsonstring, type);
+                                foreadapter myadapter = new foreadapter(MainActivity.this, carsList);
+                                myadapter.notifyDataSetChanged();
+                                forrecycle.setAdapter(myadapter);
+                                break;
+
+                            }
+                        }
 
 
 
 
-                       ArrayList<Forecastday> mylistforr = new ArrayList<>();
-                        foreadapter myadapter = new foreadapter(MainActivity.this, mylistforr);
-                        myadapter.notifyDataSetChanged();
-                        forrecycle.setAdapter(myadapter);
-
-                        Log.e("error2", t.getMessage());
 
 
                     }
